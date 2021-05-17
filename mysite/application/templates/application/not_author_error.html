@@ -1,0 +1,74 @@
+{% extends "application/wrapper.html" %}
+
+{% load static %}
+{% block head %}
+
+  <!-- Site Properties -->
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/reset.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/site.css' %}">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/container.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/grid.css' %}"> 
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/header.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/image.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/menu.css' %}">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/divider.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/segment.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/form.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/input.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/button.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/list.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/message.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/icon.css' %}">
+
+  
+  <link  rel="stylesheet" type="text/css" href= "{% static './fomantic-ui-dir/semantic/dist/components/form.css' %}">
+  <link  rel="stylesheet" type="text/css" href= "{% static './fomantic-ui-dir/semantic/dist/components/transition.css' %}">
+
+  <style type="text/css">
+    body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
+  <script>
+    $(document)
+      .ready(function() {
+        $('.ui.form')
+          .form()
+        ;
+      })
+    ;
+    </script>
+
+{% endblock%}
+
+{% block content %}
+
+
+<div class="ui segment">
+    <div class="ui basic modal">
+      <div class="content">
+        <h2 class="ui inverted header">Вы не автор данного поста.</h2>
+        <a class="ui button" href="{% url 'index' %}">Вернуться на главную страницу</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $('.ui.basic.modal')
+      .modal('show')
+    ;
+    
+      </script>
+
+{% endblock %}

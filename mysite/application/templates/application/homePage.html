@@ -1,0 +1,415 @@
+{% extends "application/wrapper.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/reset.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/site.css' %}">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/container.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/grid.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/header.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/image.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/menu.css' %}">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/divider.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/dropdown.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/segment.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/button.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/list.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/icon.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/sidebar.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/transition.css' %}">
+
+  <style type="text/css">
+
+    .hidden.menu {
+      display: none;
+    }
+
+    .masthead.segment {
+      min-height: 70px;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 5em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+
+    .footer.segment {
+      padding: 2em 0em;
+      display: flex;
+      grid-row: 2;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      
+    }
+    .ui.centered.grid{
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+    .ui.tab{
+      padding-bottom: 10em;
+    }
+    h1.ui.header{
+      font-size: 4rem;
+    }
+    
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 50px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+      .ui.tab{
+      padding-bottom: 10em;
+      }
+      .ui.centered.grid{
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      }
+      .footer.segment {
+      padding: 2em 0em;
+      display: flex;
+      grid-row: 2;
+      position: absolute;
+      width: 100%;
+      bottom: 0;  
+      }
+      .ui.vertical.stripe {
+      padding: 5em 0em;
+      }
+    }
+
+
+  </style>
+
+  <script src= "{% static 'fomantic-ui-dir/semantic/dist/components/visibility.js' %}"></script>
+  <script src= "{% static 'fomantic-ui-dir/semantic/dist/components/sidebar.js' %}"></script>
+  <script src="{% static 'fomantic-ui-dir/semantic/dist/components/transition.js' %}"></script>
+  <script>
+  $(document)
+    .ready(function() {
+
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+            var myDIV = document.getElementById('myDIV');
+            var myDIV_scroll = document.getElementById('myDIV_scroll');
+            myDIV = myDIV.getElementsByTagName('a');
+            myDIV_scroll = myDIV_scroll.getElementsByTagName('a');
+            myDIV = Array.from(myDIV);
+            myDIV_scroll = Array.from(myDIV_scroll);
+            //console.log(myDIV[0].className);
+            //console.log(myDIV_scroll[1]);
+            if(myDIV_scroll[0].className != myDIV[1].className && myDIV[1].className=='item active') {
+              $(myDIV_scroll[1]).removeClass('active');
+              $(myDIV_scroll[0]).addClass('active');
+            }
+            if(myDIV_scroll[1].className != myDIV[2].className && myDIV[2].className=='item active') {
+              $(myDIV_scroll[0]).removeClass('active');
+              $(myDIV_scroll[1]).addClass('active');
+            } 
+            
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+            var myDIV = document.getElementById('myDIV');
+            var myDIV_scroll = document.getElementById('myDIV_scroll');
+            myDIV = myDIV.getElementsByTagName('a');
+            myDIV_scroll = myDIV_scroll.getElementsByTagName('a');
+            myDIV = Array.from(myDIV);
+            myDIV_scroll = Array.from(myDIV_scroll);
+            if(myDIV_scroll[0].className != myDIV[1].className && myDIV_scroll[0].className=='item active') {
+              $(myDIV[2]).removeClass('active');
+              $(myDIV[1]).addClass('active');
+            }
+            if(myDIV_scroll[1].className != myDIV[2].className && myDIV_scroll[1].className=='item active') {
+              $(myDIV[1]).removeClass('active');
+              $(myDIV[2]).addClass('active');
+            }
+            
+          }
+        })
+      ;
+
+      // create sidebar and attach to menu open
+      $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item')
+      ;
+      
+      $('#myDIV a').click(function() {
+        $(this).siblings('a').removeClass('active');
+        //console.log(this);
+        $(this).addClass('active');
+        //console.log(this);
+    }).tab();
+      $('#myDIV_scroll a').click(function() {
+        $(this).siblings('a').removeClass('active');
+        //console.log(this);
+        $(this).addClass('active');
+        //console.log(this);
+    }).tab();
+      $('#myDIV_sidebar a').click(function() {
+        $(this).siblings('a').removeClass('active');
+        //console.log(this);
+        $(this).addClass('active');
+        //console.log(this);
+    }).tab();
+
+    })
+  ;
+    
+  
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<div class="ui large top fixed hidden menu">
+    <div id="myDIV_scroll" class="ui container">
+      <a class="item" data-tab="first">Список постов</a>
+      <a class="item" data-tab="second">Список пользователей</a>
+      <div class="right menu">
+        {% if request.user.is_authenticated %}
+            <div class="item">
+                <a class="ui button" href="{% url 'logout' %}">Выйти</a>
+            </div>
+            <div class="item">
+                <a class="ui button" href="{% url 'add_note' %}">Написать пост</a>
+            </div>
+        {% else %}
+            <div class="item">
+                <a class="ui button" href="{% url 'login' %}">Войти</a>
+            </div>
+            <div class="item">
+                <a class="ui primary button" href="{% url 'register' %}">Зарегистрироваться</a>
+            </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sidebar Menu -->
+  <div id="myDIV_sidebar" class="ui vertical inverted sidebar menu">
+    <a class="item" data-tab="first">Список постов</a>
+    <a class="item" data-tab="second">Список пользователей</a>
+    {% if request.user.is_authenticated %}
+    <a class="item" href="{% url 'logout' %}">Log out</a>
+    <a class="item" href="{% url 'add_note' %}">ADD NOTE</a>
+    {% else %}
+    <a class="item" href="{% url 'login' %}">Login</a>
+    <a class="item" href="{% url 'register' %}">Signup</a>
+    {% endif %}
+  </div>
+  
+  
+  <!-- Page Contents -->
+  <div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment">
+  
+      <div class="ui container">
+        <div id="myDIV" class="ui large secondary inverted pointing menu">
+          <a class="toc item">
+            <i class="sidebar icon"></i>
+          </a>
+          <a class="item" data-tab="first">Список постов</a>
+          <a class="item" data-tab="second">Список пользователей</a>
+          <div class="right item">
+            {% if request.user.is_authenticated %}
+            <a class="ui inverted button" href="{% url 'logout' %}">Выйти</a>
+            <a class="ui inverted button" href="{% url 'add_note' %}">Написать пост</a>
+            {% else %}
+            <a class="ui inverted button" href="{% url 'login' %}">Войти</a>
+            <a class="ui inverted button" href="{% url 'register' %}">Зарегистрироваться</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+  
+    </div>
+
+  <!--Notes list-->
+  <div class="ui tab" data-tab="first">
+    <div class="ui vertical stripe segment">
+        <h1 class="ui center aligned header">Все посты</h1>
+        <div class="ui text container">
+          {% for note in notes.object_list %}
+          
+          <a href="/{{note.id}}"><h3 class="ui header">{{note.title}}<br></h3></a>
+            {% if request.user.is_authenticated and user == note.author %}
+            <a class="ui large white button" href="{% url 'update_note' note.id %}">Изменить</a>
+            <a class="ui large red button" href="{% url 'delete_note' note.id %}">Удалить</a>
+            {% endif %}
+            <h4>Автор: {{note.author}}<br><br></h4>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+        <div class="ui centered grid">
+          <div class="ui pagination menu">
+
+            <a class="{% if not prev_url %}disabled {% endif %}item" href="{{prev_url}}"><!--previous-->
+              Предыдущий пост
+            </a>
+
+            {% if 1 == notes.number %}<!--first page-->
+            <a class="active item" href="?page={{1}}">
+              {{1}}
+            </a>
+            {% else %}
+            <a class="item" href="?page={{1}}">
+              {{1}}
+            </a>
+            {% endif %}
+
+            {% if notes.number >= 5 %}
+              <a class="item disabled">
+                ...
+              </a>
+            {% endif %}
+            
+            {% for page in notes.paginator.page_range %}  
+              
+              {% if page == notes.number and page != 1 and page != notes.paginator.num_pages %}
+                
+                <a class="active item" href="?page={{page}}">
+                  {{page}}
+                </a>
+
+              {% elif page != notes.number and page != 1 and page != notes.paginator.num_pages and page > notes.number|add:-3 and page < notes.number|add:3 %}
+                
+                <a class="item" href="?page={{page}}">
+                  {{page}}
+                </a>
+                
+              {% else %}
+                <!-- continue -->
+              {% endif %}
+                
+            {% endfor %}
+            
+            {% if notes.number <= 7 %}
+              <a class="item disabled">
+                ...
+              </a>
+            {% endif %}
+
+            {% if notes.paginator.num_pages == notes.number %}<!--last page-->
+            <a class="active item" href="?page={{notes.paginator.num_pages}}">
+              {{notes.paginator.num_pages}}
+            </a>
+            {% else %}
+            <a class="item" href="?page={{notes.paginator.num_pages}}">
+              {{notes.paginator.num_pages}}
+            </a>
+            {% endif %}
+
+            <a class="{% if not next_url %}disabled {% endif %}item" href="{{next_url}}"><!--next button-->
+              Следующий пост
+            </a>
+          </div>
+        </div>
+        {% endif %}
+
+    </div>
+  </div>
+  <!--Users list-->
+  <div class="ui tab" data-tab="second">
+    <div class="ui vertical stripe segment">
+      <div class="ui text container">
+        {% for user in Users %}
+        <h3>{{user.email}}</h3><br> 
+        {% endfor %}
+      </div>  
+    </div>
+  </div>
+
+  
+    
+
+    <div class="ui inverted vertical footer segment">
+      <div class="ui container">
+        <div class="ui stackable inverted divided equal height stackable grid">
+          <div class="one wide column">
+            <h4 class="ui inverted header">О нас</h4>
+            <div class="ui inverted link list">
+              <a href="{% url 'contact' %}" class="item">Данные о нас</a>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+{% endblock %}
+

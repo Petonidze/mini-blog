@@ -1,0 +1,16 @@
+{% extends "application/wrapper.html" %}
+
+{% block content %}
+<div class="ui modal">
+    <h2 class="text-info">{{notes.title}}</h2>
+    <h3 class="text-info">{{notes.date }}</h3>
+    <p>Текст блога: <br></p>
+    <p>{{notes.text}}</p>
+</div>
+    <script>
+    $('.ui.modal')
+        .modal('show')
+    ;
+    
+    </script>
+{% endblock %}

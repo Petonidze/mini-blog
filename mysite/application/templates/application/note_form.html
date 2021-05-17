@@ -1,0 +1,129 @@
+{% extends "application/wrapper.html" %}
+
+{% load static %}
+{% block head %}
+
+  <!-- Site Properties -->
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/reset.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/site.css' %}">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/container.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/grid.css' %}"> 
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/header.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/image.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/menu.css' %}">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/divider.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/segment.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/form.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/input.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/button.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/list.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/message.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/icon.css' %}">
+
+  <link  rel="stylesheet" type="text/css" href= "{% static './fomantic-ui-dir/semantic/dist/components/form.css' %}">
+  <link  rel="stylesheet" type="text/css" href= "{% static './fomantic-ui-dir/semantic/dist/components/transition.css' %}">
+
+  <style type="text/css">
+    body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
+  <script>
+  $(document)
+    .ready(function() {
+      $('.ui.form')
+        .form({
+          fields: {
+            date: {
+              identifier  : 'date',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter today date '
+                }
+              ]
+            },
+            title: {
+              identifier  : 'title',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter title of your article'
+                }
+              ]
+            },
+            text: {
+              identifier  : 'text',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter text of the article '
+                }
+              ]
+            },
+          }
+        })
+      ;
+    })
+  ;
+  </script>
+{% endblock %}
+
+
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class = 'ui middle aligned center aligned grid'>
+    <div class = 'column'>
+        <h2 class = 'ui image header'>Новый пост</h2>
+        <form class="ui large form" method="post">
+            {% csrf_token %}
+            
+            <div class ='field'>
+                <input type="text" name="date" required id="id_date" placeholder="Дата. Пример: yyyy-mm-dd">
+            </div>
+            <div class ='field'>
+                <input type="text" name="title" maxlength="128" required id="id_title" placeholder="Заголовок">
+            </div>
+            <div class ='field'>
+                <textarea name="text" cols="40" rows="10" required id="id_text" placeholder="Текст поста"></textarea>
+            </div>
+        
+            <div class="ui fluid large submit black button">Запостить</div>
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <div class="ui error message"></div>
+        
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="ui segment">
+    <div class="ui basic modal">
+      <div class="content">
+        <h2 class="ui inverted header">Пожалуйста, авторизуйтесь, чтобы видеть данный пост.</h2>
+        <a class="ui button" href="{% url 'login' %}">Войти</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $('.ui.basic.modal')
+      .modal('show')
+    ;
+    
+      </script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "application/wrapper.html" %}
+
+{% load static %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/reset.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/site.css' %}">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/container.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/grid.css' %}"> 
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/header.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/image.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/menu.css' %}">
+
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/divider.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/segment.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/form.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/input.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/button.css' %}">
+  <link rel="stylesheet" type="text/css" href= "{% static 'fomantic-ui-dir/semantic/dist/components/list.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/message.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fomantic-ui-dir/semantic/dist/components/icon.css' %}">
+
+  
+  <link  rel="stylesheet" type="text/css" href= "{% static './fomantic-ui-dir/semantic/dist/components/form.css' %}">
+  <link  rel="stylesheet" type="text/css" href= "{% static './fomantic-ui-dir/semantic/dist/components/transition.css' %}">
+<style type="text/css">
+    body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
+
+<script>
+  $(document)
+    .ready(function() {
+      $('.ui.form')
+        .form({
+          fields: {
+            email: {
+              identifier  : 'email',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your e-mail'
+                }
+              ]
+            },
+            biography: {
+              identifier  : 'biography',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your biography'
+                }
+              ]
+            },
+            birth_date: {
+              identifier  : 'birth_date',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your birth date'
+                }
+              ]
+            },
+            password1: {
+              identifier  : 'password1',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your password'
+                },
+                {
+                  type   : 'length[6]',
+                  prompt : 'Your password must be at least 6 characters'
+                }
+              ]
+            },
+            password2: {
+              identifier  : 'password2',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your password confirmation'
+                }
+              ]
+            }
+            
+          }
+        })
+      ;
+    })
+  ;
+  </script>
+
+{% endblock %}
+
+{% block content %}
+<div class = 'ui middle aligned center aligned grid'>
+    <div class = 'column'>
+        <h2 class = 'ui image header'>Регистрация</h2>
+          <form class='ui large form' method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class='ui stacked segment'>
+                <div class ='field'>
+                    <input type="email" name="email" maxlength="254" autofocus required id="id_email" placeholder="E-mail адрес">
+                </div>
+                <div class ='field'>
+                    <textarea name="biography" cols="40" rows="10" required id="id_biography" placeholder="Иная информация"></textarea>
+                </div>
+                <div class ='field'>
+                    <input type="text" name="birth_date" required id="id_birth_date" placeholder="Дата рождения. Пример: yyyy-mm-dd">
+                </div>
+                <input type="hidden" name="initial-birth_date" value="2021-04-30" id="initial-id_birth_date">
+                <div class ='field'>
+                    <input type="password" name="password1" autocomplete="new-password" required id="id_password1" placeholder="Пароль">
+                </div>
+
+                <span class="helptext">
+                    <ul>
+                        <li>Пароль не может быть слишком похож на ваш логин.</li>
+                        <li>Пароль должен содержать минимум 8 знаков.</li>
+                        <li>Пароль не должен быть простым.</li>
+                        <li>Пароль не может состоять только из цифр.</li>
+                    </ul>
+                </span>
+                <div class ='field'>
+                    <input type="password" name="password2" autocomplete="new-password" required id="id_password2" placeholder="Подтверждение пароля">
+                </div>
+            </div>
+            <div class='ui fluid large submit black button'>Зарегистрироваться</div>
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <div class="ui error message"></div>
+          </form>
+    </div>
+</div>
+
+
+{% endblock %}
